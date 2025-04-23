@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'package:provider/provider.dart';
+import 'screens/login_page.dart';
+import 'providers/auth_provider.dart';
+import 'providers/calculator_provider.dart';
+import 'providers/temperature_provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => CalculatorProvider()),
+        ChangeNotifierProvider(create: (_) => TemperatureProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +33,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       themeMode: ThemeMode.system,
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }
